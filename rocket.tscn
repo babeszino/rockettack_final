@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://da5tbb71utb5a"]
+
+[ext_resource type="Texture2D" uid="uid://djnbb2i3mhyso" path="res://ROCKETTACK! art/rocket1.png" id="1_0x3sk"]
+[ext_resource type="Script" path="res://rocket.gd" id="1_koi1m"]
+[ext_resource type="Texture2D" uid="uid://cx0qgh23jjm12" path="res://ROCKETTACK! art/rocket2.png" id="2_x4w0s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w1yib"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0x3sk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_x4w0s")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_paqbg"]
+height = 64.0
+
+[node name="Rocket" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_koi1m")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_w1yib")
+animation = &"fly"
+frame_progress = 0.0110406
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+shape = SubResource("CapsuleShape2D_paqbg")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
